@@ -1,6 +1,6 @@
 const express = require('express')
 
-const product = require('./product')
+// const product = require('./product')
 
 const app = express()
 
@@ -9,7 +9,7 @@ const bodyParser = require('body-parser')
 const db = require('./queries-product')
 const dbCustomer = require('./queries-customer')
 app.use(bodyParser.json())
-product.init()
+// product.init()
 
 app.get('/', (req, res) => {
     res.send('Hello World')
