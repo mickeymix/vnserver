@@ -6,8 +6,8 @@ const app = express()
 
 const bodyParser = require('body-parser')
 
-const db = require('./queries_product')
-const dbCustomer = require('./queries_customer')
+const db = require('./queries-product')
+const dbCustomer = require('./queries-customer')
 app.use(bodyParser.json())
 product.init()
 
