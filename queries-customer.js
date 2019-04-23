@@ -1,10 +1,11 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'me',
-    host: 'localhost',
-    database: 'vnapi',
-    password: 'apassword1',
+    user: 'vnadmin@vndb-api',
+    host: 'vndb-api.postgres.database.azure.com',
+    database: 'postgres',
+    password: 'Apassword1',
     port: 5432,
+    ssl: true
 })
 //create table vncustomer (ID SERIAL PRIMARY KEY,cusname VARCHAR(120),cussurname VARCHAR(120), cusphone VARCHAR(10), cusemail VARCHAR(120),cuspassword VARCHAR(120));
 const createUser = (request, response) => {

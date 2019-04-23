@@ -1,12 +1,13 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
-  user: 'me',
-  host: 'localhost',
-  database: 'vnapi',
-  password: 'apassword1',
+  user: 'vnadmin@vndb-api',
+  host: 'vndb-api.postgres.database.azure.com',
+  database: 'postgres',
+  password: 'Apassword1',
   port: 5432,
+  ssl: true
 })
-
+// host=vnapi.postgres.database.azure.com port=5432 dbname={your_database} user=me@vnapi password={your_password} sslmode=required
 const getRoofProductByName = (request, response) => {
   try {
     const pruductName = request.query.productName
