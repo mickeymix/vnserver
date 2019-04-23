@@ -34,7 +34,7 @@ app.get("/vnapi/doorandsky/product?:productName",db.getDoorProductByName)
 app.post("/vnapi/user",dbCustomer.createUser)
 
 app.post("/vnapi/login",dbCustomer.validateLogin)
-
+app.post("/vnapi/inquiryCustomer",dbCustomer.inquiryCustomerLogin)
 
 app.post("/vnapi/warranty/createwarranty",dbCustomer.createWarranty)
 

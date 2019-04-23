@@ -67,6 +67,24 @@ const validateLogin = (request, response) => {
 
 }
 
+const inquiryCustomerLogin = (request, response) => {
+    const { cusemail} = request.body
+
+    pool.query('SELECT * FROM vncustomer WHERE cusemail = $1', [cusemail], (error, results) => {
+        try{
+          if (results.rowCount<0) {
+              console.log("No Usr found")
+              response.status(200).json(parseJsonRespons(false, 'Sorry, Email or Password does not match.'))
+          } else {
+                  response.status(200).json(parseJsonResponsProfile(true, results.rows[0]))
+          }
+        }catch(e){
+          response.status(400).json(parseJsonRespons(false, 'Sorry, Email or Password does not match.'))
+  
+        }
+          
+      })
+}
 const createWarranty = (request, response) => {
     const {wphone, wemail, wproduct, wdetail, productbrand, warrantyno, waddress, wname} = request.body
     try {
@@ -117,5 +135,6 @@ module.exports = {
     createUser,
     validateLogin,
     inqueryWarranty,
-    createWarranty
+    createWarranty,
+    inquiryCustomerLogin
   }
