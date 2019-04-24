@@ -88,13 +88,27 @@ const inquiryCustomerLogin = (request, response) => {
 const createWarranty = (request, response) => {
     const {wphone, wemail, wproduct, wdetail, productbrand, warrantyno, waddress, wname} = request.body
     try {
-        pool.query('INSERT INTO vnwarranty (wphone, wemail, wproduct, wdetail, productbrand, warrantyno, waddress, wname) VALUES ($1, $2,$3,$4,$5,$6,$7,$8) ON CONFLICT (warrantyno) DO UPDATE SET wphone = $1, wemail = $2, wproduct =$3,wdetail = $4,productbrand =$5,waddress=$6,wname=$7'
-        , [wphone, wemail, wproduct, wdetail, productbrand, warrantyno, waddress, wname], (error, results) => {
-            if (error) {
-                throw error
+        pool.query('SELECT * FROM vnwarranty WHERE warrantyno = $1', [warrantyno], (error, results) => {
+            if (results.rowCount<0) {
+                pool.query('INSERT INTO vnwarranty (wphone, wemail, wproduct, wdetail, productbrand, warrantyno, waddress, wname) VALUES ($1, $2,$3,$4,$5,$6,$7,$8) ON CONFLICT (warrantyno) DO UPDATE SET wphone = $1, wemail = $2, wproduct =$3,wdetail = $4,productbrand =$5,waddress=$6,wname=$7'
+                , [wphone, wemail, wproduct, wdetail, productbrand, warrantyno, waddress, wname], (error, results) => {
+                    if (error) {
+                        throw error
+                    }
+                    response.status(200).json(parseJsonRespons(true, 'warranty  has been added'))
+                })
+            }else{
+                pool.query('INSERT INTO vnwarranty (wphone, wemail, wproduct, wdetail, productbrand, warrantyno, waddress, wname) VALUES ($1, $2,$3,$4,$5,$6,$7,$8)'
+                , [wphone, wemail, wproduct, wdetail, productbrand, warrantyno, waddress, wname], (error, results) => {
+                    if (error) {
+                        throw error
+                    }
+                    response.status(200).json(parseJsonRespons(true, 'warranty  has been added'))
+                })
             }
-            response.status(200).json(parseJsonRespons(true, 'warranty  has been added'))
+
         })
+        
     } catch (error) {
         response.status(400).json(parseJsonRespons(false, 'Sorry, please try again later.'))
 
